@@ -1,0 +1,9 @@
+#!/bin/sh -h 
+PYTHONHOME=/home/vlsilab/synopsys/vcs/etc/search/pyh
+export PYTHONHOME
+PYTHONPATH=/home/vlsilab/synopsys/vcs/linux/lib/pylib27
+export PYTHONPATH
+LD_LIBRARY_PATH=/home/vlsilab/synopsys/vcs/linux/lib:/home/vlsilab/synopsys/vcs/linux/lib/pylib27
+export LD_LIBRARY_PATH
+/home/vlsilab/synopsys/vcs/linux/bin/vcsfind_create_index.exe  -z  "/home/class/pani0027/Verif/Lab_1/simv.daidir/debug_dump/fsearch/./idents_Z51CUk.xml.gz" "/home/class/pani0027/Verif/Lab_1/simv.daidir/debug_dump/fsearch/./idents_tapi.xml.gz" -o "/home/class/pani0027/Verif/Lab_1/simv.daidir/debug_dump/fsearch/fsearch.db_tmp"
+\mv "/home/class/pani0027/Verif/Lab_1/simv.daidir/debug_dump/fsearch/fsearch.db_tmp" "/home/class/pani0027/Verif/Lab_1/simv.daidir/debug_dump/fsearch/fsearch.db"

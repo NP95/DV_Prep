@@ -1,0 +1,23 @@
+# Preference setting overrides
+gui_create_pref_key -category {Globals} -key {load_detail_for_funcov} -value_type {bool} -value {false}
+
+# State setting overrides
+gui_state_default_create -off -ini
+gui_create_state_key -category FindDialog -key m_pMatchCase -value_type bool -value false
+gui_create_state_key -category FindDialog -key m_pMatchWord -value_type bool -value false
+gui_create_state_key -category FindDialog -key m_pUseCombo -value_type string -value {}
+gui_create_state_key -category FindDialog -key m_pWrapAround -value_type bool -value true
+gui_state_default_create -off
+
+# Begin command logging
+gui_open_db -file vcdplus.vpd
+gui_list_expand -id  Hier.1   adder_tb_top
+gui_list_select -id Hier.1 -current_item_name adder_tb_top.a_int -current_item_type Scope  -selected  { adder_tb_top.a_int   }
+gui_list_select -id Data.1 -selected  { {adder_tb_top.a_int.sum[3:0]}   }
+gui_list_select -id Data.1 -selected  { {adder_tb_top.a_int.sum[3:0]}  adder_tb_top.a_int.c_out   }
+gui_list_select -id Data.1 -selected  { {adder_tb_top.a_int.sum[3:0]}  adder_tb_top.a_int.c_out  {adder_tb_top.a_int.a[3:0]}   }
+gui_list_select -id Data.1 -selected  { {adder_tb_top.a_int.sum[3:0]}  adder_tb_top.a_int.c_out  {adder_tb_top.a_int.a[3:0]}  {adder_tb_top.a_int.b[3:0]}   }
+gui_open_window Wave
+gui_list_add -id Wave.1 -from Data.1 { {adder_tb_top.a_int.sum[3:0]} adder_tb_top.a_int.c_out {adder_tb_top.a_int.a[3:0]} {adder_tb_top.a_int.b[3:0]} } -insertionbar
+gui_wv_zoom_timerange -id  Wave.1 0 445
+gui_close_window -window TopLevel.2

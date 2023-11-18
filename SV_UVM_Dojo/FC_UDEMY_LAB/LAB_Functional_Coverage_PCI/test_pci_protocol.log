@@ -1,0 +1,111 @@
+         0  clk=1 reset_=1 FRAME_=x AD=zzzzzzzz C_BE_=xxxx IRDY_=x TRDY_=x DEVSEL_=x READ=0 WRITE=0
+        10  clk=1 reset_=1 FRAME_=x AD=zzzzzzzz C_BE_=xxxx IRDY_=x TRDY_=x DEVSEL_=1 READ=1 WRITE=0
+
+	PCI_MASTER: READ CYCLE START
+        20  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=xxxx IRDY_=1 TRDY_=x DEVSEL_=1 READ=0 WRITE=0
+
+	READ CYCLE: Drive FRAME_, AD and Read Command
+        30  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=x DEVSEL_=1 READ=0 WRITE=0
+	TARGET WRITE: TARGET selected
+        40  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=x DEVSEL_=0 READ=0 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = cafecafe
+
+	READ CYCLE: 	Data Transfer Phase
+        50  clk=1 reset_=1 FRAME_=0 AD=cafecafe C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=0 WRITE=0
+
+	TARGET Wait Mode
+        60  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=1 DEVSEL_=0 READ=0 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = faceface
+
+	READ CYCLE: 	Data Transfer Phase
+        70  clk=1 reset_=1 FRAME_=0 AD=faceface C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=0 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = cafeface
+
+	READ CYCLE: Master Wait Mode
+        80  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=0110 IRDY_=1 TRDY_=0 DEVSEL_=0 READ=0 WRITE=0
+
+	READ CYCLE: Data Transfer Phase
+        90  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=0 WRITE=0
+	TARGET WRITE: COMPLETE
+
+	READ CYCLE: FRAME_ De-asserted
+       100  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+
+	READ CYCLE COMPLETE
+       110  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       120  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=1
+
+	PCI_MASTER: WRITE CYCLE START
+       130  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       140  clk=1 reset_=1 FRAME_=1 AD=0000ffff C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       150  clk=1 reset_=1 FRAME_=1 AD=ffff0000 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       160  clk=1 reset_=1 FRAME_=1 AD=f0f0f0f0 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       170  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       180  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       190  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+	PCI_MASTER: WRITE CYCLE END
+
+       200  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=1 WRITE=0
+
+	PCI_MASTER: READ CYCLE START
+       210  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=1 WRITE=0
+
+	READ CYCLE: Drive FRAME_, AD and Read Command
+       220  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=1 WRITE=0
+	TARGET WRITE: TARGET selected
+       230  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=1 DEVSEL_=0 READ=1 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = cafecafe
+
+	READ CYCLE: 	Data Transfer Phase
+       240  clk=1 reset_=1 FRAME_=0 AD=cafecafe C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=1 WRITE=0
+
+	TARGET Wait Mode
+       250  clk=1 reset_=1 FRAME_=0 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=1 DEVSEL_=0 READ=1 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = faceface
+
+	READ CYCLE: 	Data Transfer Phase
+       260  clk=1 reset_=1 FRAME_=0 AD=faceface C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=1 WRITE=0
+	TARGET WRITE: TARGET DATA DRIVEN = cafeface
+
+	READ CYCLE: Master Wait Mode
+       270  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=0110 IRDY_=1 TRDY_=0 DEVSEL_=0 READ=1 WRITE=0
+
+	READ CYCLE: Data Transfer Phase
+       280  clk=1 reset_=1 FRAME_=0 AD=cafeface C_BE_=0110 IRDY_=0 TRDY_=0 DEVSEL_=0 READ=1 WRITE=0
+	TARGET WRITE: COMPLETE
+
+	READ CYCLE: FRAME_ De-asserted
+       290  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=0 TRDY_=1 DEVSEL_=1 READ=1 WRITE=0
+
+	READ CYCLE COMPLETE
+       300  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       310  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=1
+
+	PCI_MASTER: WRITE CYCLE START
+       320  clk=1 reset_=1 FRAME_=1 AD=zzzzzzzz C_BE_=0110 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       330  clk=1 reset_=1 FRAME_=1 AD=0000ffff C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       340  clk=1 reset_=1 FRAME_=1 AD=ffff0000 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       350  clk=1 reset_=1 FRAME_=1 AD=f0f0f0f0 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       360  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       370  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+       380  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+	PCI_MASTER: WRITE CYCLE END
+
+
+ 	Coverage for pci_cycles_inst is 100.000000
+
+ 	Coverage for ByteEnables_inst is 12.500000
+
+ 	Coverage for pciTrans_inst is 100.000000
+
+ 	Coverage for Enables_inst is 100.000000
+
+ 	Coverage for ad_inst is 50.000000
+
+ 	Coverage for irtr_cross_inst is 100.000000
+
+
+       390  clk=1 reset_=1 FRAME_=1 AD=12345678 C_BE_=0111 IRDY_=1 TRDY_=1 DEVSEL_=1 READ=0 WRITE=0
+$finish called from file "test_pci_protocol.sv", line 93.
+$finish at simulation time                  395
+           V C S   S i m u l a t i o n   R e p o r t 

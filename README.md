@@ -2,27 +2,28 @@
 
 Nishant's DV Target
 
-Target websites
+#Target websites
 *verificationguide.com
 *chipverify.com
 *testbench.in
 *cluelogic.com
 
 
-RTL Practice Sites
+#RTL Practice Sites
 *chipdev.io
 *hdlbits
 *quicksilicon.in
 
-Books
+#Books
 *The UVM Primer(Completed Reading, time to add notes)
 *Getting Started with UVM Vanessa Cooper (80%)
 *System Verilog Assertions and Functional Coverage: Guide to Language, Methodology and Applications
 *Siemens UVM Cookbook
 *Siemens Coverage Cookbook
 *UVM JDI(Just Do It)
+*Cracking the VLSI Verification Interview
 
-Papers
+#Papers
 *Sunburst/ParadigmWorks
 *Ben Cohen papers
 *Simon folder
@@ -31,7 +32,7 @@ Papers
 *German CPP Presentation
 
 
-Organization of this Folder
+#Organization of this Repository
 
 *ResumeProjects
 *PreviousDV Experiences from Discord
@@ -41,9 +42,12 @@ Organization of this Folder
 *UVM-Part1 Example codes
 *UVM-Part2 Example codes
 *UVM-Part3 Example codes
+*RTL Practice Questions
+	*QuickSilicon
+	*HDLBits
+	*Chipdev.io
 
-
-GrowDV Tests
+#GrowDV Tests and Courses
 *SV Basics
 *UVM Linux Protocol
 *APB Protocol Test
