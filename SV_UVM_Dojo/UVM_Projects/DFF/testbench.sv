@@ -1,3 +1,5 @@
+
+
 `include "uvm_macros.svh"
 import uvm_pkg;
 
@@ -148,9 +150,9 @@ class adder_scoreboard extends uvm_scoreboard;
 
 	virtual function void write(transaction tr);
 		if(tr.y = (tr.a + tr.b))
-			`uvm_info("Adder_Scoreboard",$sformatf("Test Passed -> A : %0d, B: %0d ,Y: %0d",tr.a,tr.b,tr.y,UVM_NONE)
+			`uvm_info()
 		else
-			`uvm_error("Adder_Scoreboard",$sformatf("Test Failed -> A : %0d, B: %0d ,Y: %0d",tr.a,tr.b,tr.y,UVM_NONE)
+			`uvm_info()
 
 		$display("-------------------------------------------------------");
 	endfunction
@@ -176,89 +178,3 @@ class adder_agent extends uvm_agent;
 		super.build(phase);
 		drv = adder_driver::type_id::create("drv",this);
 		mon = adder_mon::type_id::create("mon",this);
-		seqr = uvm_sequencer#(transaction)::type_id::create("seqr",this);
-	endfunction
-
-	virtual function connect_phase(uvm_phase phase);
-		super.build(phase);
-		drv.seq_item_port.connect(seqr.seq_item_export);
-	endfunction
-
-endclass
-
-
-///////////////////// Writing the Environment
-//
-//
-
-class adder_env extends uvm_env;
-	`uvm_component_utils(env)
-
-	function new(input string inst ="adder_env", uvm_component parent = null);
-	       super.new(inst,parent);
-       endfunction
-
-adder_agent a;
-adder_scoreboard s;
-
-virtual function void build_phase(uvm_phase phase);
-	super.build(phase);
-	a = adder_agent::type_id::create("a",this);
-	s = adder_scoreboard::type_id::create("s",this);
-endfunction
-
-virtual function void connect_phase(uvm_phase phase);
-	super.connect_phase(phase);
-	a.adder_mon.send.connect(s.receiver);
-endfunction
-
-endclass
-
-//////////// Writing the Test
-//
-//
-
-class adder_test extends uvm_test;
-	`uvm_component_utils(test)
-
-	function new(input string inst ="test", uvm_component c);
-		super.new(inst,c);
-	endfunction
-
-	adder_env e;
-	adder_sequencer gen;
-
-	virtual function void build_phase(uvm_phase phase);
-		super.build_phase(phase);
-		e = adder_environment::type_id::create("e",this);
-		gen = adder_sequencer::type_id::create("gen");
-       endfunction
-
-	virtual task run_phase(uvm_phase phase);
-		phase.raise_objection(this);
-		gen.start(e.a.seqr);
-                #20
-		phase.drop_objection(this);
-	endtask
-endclass
-
-//////////////////////////// The Top Module
-//
-//
-module testbench;
-adder_if aif();
-
-adder dut(a(aif.a),b(aif.b),y(aif.y));
-
-initial begin
-	uvm_config_db#(virtual adder_if)::set(null,"*","aif",aif);
-	run_test("adder_test");
-end
-
-initial begin
-	$dumpfile("dump.vcd");
-	$dumpvars;
-end
-endmodule
-
-
