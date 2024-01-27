@@ -1,3 +1,4 @@
+//https://edaplayground.com/x/PHbv EDA Playground Link
 `include "uvm_macros.svh"
  import uvm_pkg::*;
  
@@ -16,10 +17,10 @@ endclass
  
 //////////////////////////////////////////////////////////
  
-typedef enum bit [2:0]   {readd = 0, writed = 1, rstdut = 2, writeerr = 3, readerr = 4} oper_mode;
+typedef enum bit [2:0]   {READ_D = 0, WRITE_D = 1, RST_DUT = 2, WRITE_ERR = 3, READ_ERR = 4} oper_mode;
  
  
-class transaction extends uvm_sequence_item;
+class spi_transaction extends uvm_sequence_item;
   
     rand oper_mode   op;
          logic wr;
@@ -31,7 +32,7 @@ class transaction extends uvm_sequence_item;
          logic err;
   
  
-        `uvm_object_utils_begin(transaction)
+        `uvm_object_utils_begin(spi_transaction)
         `uvm_field_int (wr,UVM_ALL_ON)
         `uvm_field_int (rst,UVM_ALL_ON)
         `uvm_field_int (addr,UVM_ALL_ON)
@@ -42,24 +43,26 @@ class transaction extends uvm_sequence_item;
         `uvm_field_enum(oper_mode, op, UVM_DEFAULT)
         `uvm_object_utils_end
   
+  //First constraint to generate valid addresses Second one to generate
+  //invalid address
   constraint addr_c { addr <= 10; }
   constraint addr_c_err { addr > 31; }
  
-  function new(string name = "transaction");
+  function new(string name = "spi_transaction");
     super.new(name);
   endfunction
  
-endclass : transaction
+endclass : spi_transaction
  
  
 ///////////////////////////////////////////////////////////////////////
  
  
 ///////////////////write seq
-class write_data extends uvm_sequence#(transaction);
+class write_data extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(write_data)
   
-  transaction tr;
+  spi_transaction write_valid_address;
  
   function new(string name = "write_data");
     super.new(name);
@@ -68,13 +71,15 @@ class write_data extends uvm_sequence#(transaction);
   virtual task body();
     repeat(15)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(1);
-        tr.addr_c_err.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = writed;
-        finish_item(tr);
+        write_valid_address = spi_transaction::type_id::create("write_valid_address");
+	//Generating a valid address by turning on first constraint and
+	//turning off the second constraint
+        write_valid_address.addr_c.constraint_mode(1);
+        write_valid_address.addr_c_err.constraint_mode(0);
+        start_item(write_valid_address);
+        assert(write_valid_address.randomize);
+        write_valid_address.op = WRITE_D;
+        finish_item(write_valid_address);
       end
   endtask
   
@@ -83,10 +88,10 @@ endclass
 //////////////////////////////////////////////////////////
  
  
-class write_err extends uvm_sequence#(transaction);
+class write_err extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(write_err)
   
-  transaction tr;
+  spi_transaction write_invalid_address;
  
   function new(string name = "write_err");
     super.new(name);
@@ -95,13 +100,13 @@ class write_err extends uvm_sequence#(transaction);
   virtual task body();
     repeat(15)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c_err.constraint_mode(1);
-        tr.addr_c.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = writed;
-        finish_item(tr);
+        write_invalid_address = spi_transaction::type_id::create("write_invalid_address");
+        write_invalid_address.addr_c_err.constraint_mode(1);
+        write_invalid_address.addr_c.constraint_mode(0);
+        start_item(write_invalid_address);
+        assert(write_invalid_address.randomize);
+        write_invalid_address.op = WRITE_D;
+        finish_item(write_invalid_address);
       end
   endtask
   
@@ -110,10 +115,10 @@ endclass
  
 ///////////////////////////////////////////////////////////////
  
-class read_data extends uvm_sequence#(transaction);
+class read_data extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(read_data)
   
-  transaction tr;
+  spi_transaction read_valid_address;
  
   function new(string name = "read_data");
     super.new(name);
@@ -122,13 +127,13 @@ class read_data extends uvm_sequence#(transaction);
   virtual task body();
     repeat(15)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(1);
-        tr.addr_c_err.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = readd;
-        finish_item(tr);
+        read_valid_address = spi_transaction::type_id::create("read_valid_address");
+        read_valid_address.addr_c.constraint_mode(1);
+        read_valid_address.addr_c_err.constraint_mode(0);
+        start_item(read_valid_address);
+        assert(read_valid_address.randomize);
+        read_valid_address.op = READ_D;
+        finish_item(read_valid_address);
       end
   endtask
   
@@ -136,10 +141,10 @@ class read_data extends uvm_sequence#(transaction);
 endclass
 /////////////////////////////////////////////////////////////////////
  
-class read_err extends uvm_sequence#(transaction);
+class read_err extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(read_err)
   
-  transaction tr;
+  spi_transaction read_invalid_address;
  
   function new(string name = "read_err");
     super.new(name);
@@ -148,13 +153,13 @@ class read_err extends uvm_sequence#(transaction);
   virtual task body();
     repeat(15)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(0);
-        tr.addr_c_err.constraint_mode(1);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = readd;
-        finish_item(tr);
+        read_invalid_address = spi_transaction::type_id::create("read_invalid_address");
+        read_invalid_address.addr_c.constraint_mode(0);
+        read_invalid_address.addr_c_err.constraint_mode(1);
+        start_item(read_invalid_address);
+        assert(read_invalid_address.randomize);
+        read_invalid_address.op = READ_D;
+        finish_item(read_invalid_address);
       end
   endtask
   
@@ -162,10 +167,10 @@ class read_err extends uvm_sequence#(transaction);
 endclass
 /////////////////////////////////////////////////////////////////
  
-class reset_dut extends uvm_sequence#(transaction);
+class reset_dut extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(reset_dut)
   
-  transaction tr;
+  spi_transaction read_invalid_address;
  
   function new(string name = "reset_dut");
     super.new(name);
@@ -174,13 +179,13 @@ class reset_dut extends uvm_sequence#(transaction);
   virtual task body();
     repeat(15)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(1);
-        tr.addr_c_err.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = rstdut;
-        finish_item(tr);
+        read_invalid_address = spi_transaction::type_id::create("read_invalid_address");
+        read_invalid_address.addr_c.constraint_mode(1);
+        read_invalid_address.addr_c_err.constraint_mode(0);
+        start_item(read_invalid_address);
+        assert(read_invalid_address.randomize);
+        read_invalid_address.op = RST_DUT;
+        finish_item(read_invalid_address);
       end
   endtask
   
@@ -190,10 +195,10 @@ endclass
  
  
  
-class writeb_readb extends uvm_sequence#(transaction);
+class writeb_readb extends uvm_sequence#(spi_transaction);
   `uvm_object_utils(writeb_readb)
   
-  transaction tr;
+  spi_transaction write_then_read;
  
   function new(string name = "writeb_readb");
     super.new(name);
@@ -203,24 +208,24 @@ class writeb_readb extends uvm_sequence#(transaction);
      
     repeat(10)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(1);
-        tr.addr_c_err.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = writed;
-        finish_item(tr);  
+        write_then_read = spi_transaction::type_id::create("write_then_read");
+        write_then_read.addr_c.constraint_mode(1);
+        write_then_read.addr_c_err.constraint_mode(0);
+        start_item(write_then_read);
+        assert(write_then_read.randomize);
+        write_then_read.op = WRITE_D;
+        finish_item(write_then_read);  
       end
         
     repeat(10)
       begin
-        tr = transaction::type_id::create("tr");
-        tr.addr_c.constraint_mode(1);
-        tr.addr_c_err.constraint_mode(0);
-        start_item(tr);
-        assert(tr.randomize);
-        tr.op = readd;
-        finish_item(tr);
+        write_then_read = spi_transaction::type_id::create("write_then_read");
+        write_then_read.addr_c.constraint_mode(1);
+        write_then_read.addr_c_err.constraint_mode(0);
+        start_item(write_then_read);
+        assert(write_then_read.randomize);
+        write_then_read.op = READ_D;
+        finish_item(write_then_read);
       end   
     
   endtask
@@ -231,11 +236,11 @@ endclass
  
  
 ////////////////////////////////////////////////////////////
-class driver extends uvm_driver #(transaction);
+class driver extends uvm_driver #(spi_transaction);
   `uvm_component_utils(driver)
   
   virtual spi_i vif;
-  transaction tr;
+  spi_transaction stimulus;
   
   
   function new(input string path = "drv", uvm_component parent = null);
@@ -244,10 +249,10 @@ class driver extends uvm_driver #(transaction);
   
  virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-     tr = transaction::type_id::create("tr");
+     stimulus = spi_transaction::type_id::create("stimulus");
       
       if(!uvm_config_db#(virtual spi_i)::get(this,"","vif",vif))//uvm_test_top.env.agent.drv.aif
-      `uvm_error("drv","Unable to access Interface");
+      `uvm_error("DRV","Unable to access Interface");
   endfunction
   
   
@@ -269,31 +274,31 @@ class driver extends uvm_driver #(transaction);
     reset_dut();
    forever begin
      
-         seq_item_port.get_next_item(tr);
+         seq_item_port.get_next_item(stimulus);
      
      
-                   if(tr.op ==  rstdut)
+                   if(stimulus.op ==  RST_DUT)
                           begin
                           vif.rst   <= 1'b1;
                           @(posedge vif.clk);  
                           end
  
-                  else if(tr.op == writed)
+                  else if(stimulus.op == WRITE_D)
                           begin
 					      vif.rst <= 1'b0;
                           vif.wr  <= 1'b1;
-                          vif.addr <= tr.addr;
-                          vif.din  <= tr.din;
+                          vif.addr <= stimulus.addr;
+                          vif.din  <= stimulus.din;
                           @(posedge vif.clk);
                           `uvm_info("DRV", $sformatf("mode : Write addr:%0d din:%0d", vif.addr, vif.din), UVM_NONE);
                           @(posedge vif.done);
                           end
-                else if(tr.op ==  readd)
+                else if(stimulus.op ==  READ_D)
                           begin
 					      vif.rst  <= 1'b0;
                           vif.wr   <= 1'b0;
-                          vif.addr <= tr.addr;
-                          vif.din  <= tr.din;
+                          vif.addr <= stimulus.addr;
+                          vif.din  <= stimulus.din;
                           @(posedge vif.clk);
                             `uvm_info("DRV", $sformatf("mode : Read addr:%0d din:%0d", vif.addr, vif.din), UVM_NONE);
                           @(posedge vif.done);
@@ -316,8 +321,8 @@ endclass
 class mon extends uvm_monitor;
 `uvm_component_utils(mon)
  
-uvm_analysis_port#(transaction) send;
-transaction tr;
+uvm_analysis_port#(spi_transaction) send;
+spi_transaction tr;
 virtual spi_i vif;
  
     function new(input string inst = "mon", uvm_component parent = null);
@@ -326,7 +331,7 @@ virtual spi_i vif;
     
     virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    tr = transaction::type_id::create("tr");
+    tr = spi_transaction::type_id::create("tr");
     send = new("send", this);
       if(!uvm_config_db#(virtual spi_i)::get(this,"","vif",vif))//uvm_test_top.env.agent.drv.aif
         `uvm_error("MON","Unable to access Interface");
@@ -338,14 +343,14 @@ virtual spi_i vif;
       @(posedge vif.clk);
       if(vif.rst)
         begin
-        tr.op      = rstdut; 
+        tr.op      = RST_DUT; 
         `uvm_info("MON", "SYSTEM RESET DETECTED", UVM_NONE);
         send.write(tr);
         end
       else if (!vif.rst && vif.wr)
          begin
           @(posedge vif.done);
-          tr.op     = writed;
+          tr.op     = WRITE_D;
           tr.din    = vif.din;
           tr.addr   = vif.addr;
           tr.err    = vif.err;
@@ -355,7 +360,7 @@ virtual spi_i vif;
       else if (!vif.rst && !vif.wr)
          begin
           @(posedge vif.done);
-          tr.op     = readd; 
+          tr.op     = READ_D; 
           tr.addr   = vif.addr;
           tr.err    = vif.err;
           tr.dout   = vif.dout; 
@@ -372,7 +377,7 @@ endclass
 class sco extends uvm_scoreboard;
 `uvm_component_utils(sco)
  
-  uvm_analysis_imp#(transaction,sco) recv;
+  uvm_analysis_imp#(spi_transaction,sco) recv;
   bit [31:0] arr[32] = '{default:0};
   bit [31:0] addr    = 0;
   bit [31:0] data_rd = 0;
@@ -389,12 +394,12 @@ class sco extends uvm_scoreboard;
     endfunction
     
     
-  virtual function void write(transaction tr);
-    if(tr.op == rstdut)
+  virtual function void write(spi_transaction tr);
+    if(tr.op == RST_DUT)
               begin
                 `uvm_info("SCO", "SYSTEM RESET DETECTED", UVM_NONE);
               end  
-    else if (tr.op == writed)
+    else if (tr.op == WRITE_D)
       begin
         if(tr.err == 1'b1)
                 begin
@@ -406,7 +411,7 @@ class sco extends uvm_scoreboard;
                   `uvm_info("SCO", $sformatf("DATA WRITE OP  addr:%0d, wdata:%0d arr_wr:%0d",tr.addr,tr.din,  arr[tr.addr]), UVM_NONE);
                 end
       end
-    else if (tr.op == readd)
+    else if (tr.op == READ_D)
       begin
           if(tr.err == 1'b1)
                 begin
@@ -443,7 +448,7 @@ super.new(inst,parent);
 endfunction
  
  driver d;
- uvm_sequencer#(transaction) seqr;
+ uvm_sequencer#(spi_transaction) seqr;
  mon m;
  
  
@@ -455,7 +460,7 @@ super.build_phase(phase);
   if(cfg.is_active == UVM_ACTIVE)
    begin   
    d = driver::type_id::create("d",this);
-   seqr = uvm_sequencer#(transaction)::type_id::create("seqr", this);
+   seqr = uvm_sequencer#(spi_transaction)::type_id::create("seqr", this);
    end
   
   
@@ -514,7 +519,7 @@ read_err rerr;
 writeb_readb wrrdb;
  
  
-reset_dut rstdut;  
+reset_dut RST_DUT;  
  
   
 virtual function void build_phase(uvm_phase phase);
@@ -525,12 +530,16 @@ super.build_phase(phase);
    rdata  = read_data::type_id::create("rdata");
    wrrdb  = writeb_readb::type_id::create("wrrdb");
    rerr   = read_err::type_id::create("rerr");
-   rstdut = reset_dut::type_id::create("rstdut");
+   RST_DUT = reset_dut::type_id::create("RST_DUT");
 endfunction
  
 virtual task run_phase(uvm_phase phase);
 phase.raise_objection(this);
 wrrdb.start(e.a.seqr);
+//wrrdb.start(e.a.seqr);
+//wrrdb.start(e.a.seqr);
+//wrrdb.start(e.a.seqr);
+//wrrdb.start(e.a.seqr);
 #20;
 phase.drop_objection(this);
 endtask
