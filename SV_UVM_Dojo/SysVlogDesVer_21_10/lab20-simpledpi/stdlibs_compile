@@ -1,1 +1,0 @@
-gcc -fpic stdlibs.c -shared -o libdpi.so -m32 -lm

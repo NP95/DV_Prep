@@ -1,3 +1,0 @@
-vlog -sv test_pci_protocol.sv pci_master.v pci_target.v 
-
-vsim -assertdebug -coverage -c test_pci_protocol -l test_pci_protocol.log -do "run -all; quit"
