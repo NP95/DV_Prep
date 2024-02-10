@@ -1,0 +1,114 @@
+[2024-02-10 10:06:11 UTC] xrun -Q -unbuffered '-timescale' '1ns/1ns' '-sysv' '-access' '+rw' -uvmnocdnsextra -uvmhome $UVM_HOME $UVM_HOME/src/uvm_macros.svh design.sv testbench.sv  
+TOOL:	xrun	20.09-s003: Started on Feb 10, 2024 at 05:06:12 EST
+xrun: 20.09-s003: (c) Copyright 1995-2020 Cadence Design Systems, Inc.
+	Top level design units:
+		uvm_pkg
+		$unit_0x67f934e9
+		tb
+xmelab: *W,DSEMEL: This SystemVerilog design will be simulated as per IEEE 1800-2009 SystemVerilog simulation semantics. Use -disable_sem2009 option for turning off SV 2009 simulation semantics.
+Loading snapshot worklib.tb:sv .................... Done
+SVSEED default: 1
+xmsim: *W,RNDXCELON: A newer version of the SystemVerilog constraint solver is being used which has better support for array-solving, new solve-order mechanism, and seed stability enhancements..
+xmsim: *W,DSEM2009: This SystemVerilog design is simulated as per IEEE 1800-2009 SystemVerilog simulation semantics. Use -disable_sem2009 option for turning off SV 2009 simulation semantics.
+xcelium> source /xcelium20.09/tools/xcelium/files/xmsimrc
+xcelium> source /xcelium20.09/tools//methodology/UVM/CDNS-1.2/sv/files/tcl/uvm_sim.tcl
+xcelium> run
+UVM_INFO /xcelium20.09/tools//methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh(412) @ 0: reporter [UVM/RELNOTES] 
+----------------------------------------------------------------
+CDNS-UVM-1.2 (20.09-s003)
+(C) 2007-2014 Mentor Graphics Corporation
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2013-2014 NVIDIA Corporation
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test test...
+xmsim: *W,PRPASZ: Packed array at "worklib.uvm_pkg::uvm_string_to_bits.uvm_string_to_bits" of 115200 bits exceeds limit of 4096 - not probed
+ Use 'probe -create -packed 115200 worklib.uvm_pkg::uvm_string_to_bits.uvm_string_to_bits' or 'setenv SHM_PACKED_LIMIT 115200' to adjust limit.
+xmsim: *W,PRPASZ: Packed array at "worklib.uvm_pkg::uvm_bits_to_string.str" of 115200 bits exceeds limit of 4096 - not probed
+ Use 'probe -create -packed 115200 worklib.uvm_pkg::uvm_bits_to_string.str' or 'setenv SHM_PACKED_LIMIT 115200' to adjust limit.
+UVM_INFO testbench.sv(407) @ 0: uvm_test_top.env.a.d [DRV] System Reset : Start of Simulation
+UVM_INFO testbench.sv(475) @ 10000: uvm_test_top.env.a.m [MON] SYSTEM RESET DETECTED
+UVM_INFO testbench.sv(525) @ 10000: uvm_test_top.env.s [SCO] BAUD:x LEN:x PAR_T:x PAR_EN:x STOP:x TX_DATA:x RX_DATA:x
+UVM_INFO testbench.sv(527) @ 10000: uvm_test_top.env.s [SCO] System Reset
+----------------------------------------------------------------
+UVM_INFO testbench.sv(407) @ 10000: uvm_test_top.env.a.d [DRV] System Reset : Start of Simulation
+UVM_INFO testbench.sv(475) @ 30000: uvm_test_top.env.a.m [MON] SYSTEM RESET DETECTED
+UVM_INFO testbench.sv(525) @ 30000: uvm_test_top.env.s [SCO] BAUD:x LEN:x PAR_T:x PAR_EN:x STOP:x TX_DATA:x RX_DATA:x
+UVM_INFO testbench.sv(527) @ 30000: uvm_test_top.env.s [SCO] System Reset
+----------------------------------------------------------------
+UVM_INFO testbench.sv(407) @ 30000: uvm_test_top.env.a.d [DRV] System Reset : Start of Simulation
+UVM_INFO testbench.sv(475) @ 50000: uvm_test_top.env.a.m [MON] SYSTEM RESET DETECTED
+UVM_INFO testbench.sv(525) @ 50000: uvm_test_top.env.s [SCO] BAUD:x LEN:x PAR_T:x PAR_EN:x STOP:x TX_DATA:x RX_DATA:x
+UVM_INFO testbench.sv(527) @ 50000: uvm_test_top.env.s [SCO] System Reset
+----------------------------------------------------------------
+UVM_INFO testbench.sv(407) @ 50000: uvm_test_top.env.a.d [DRV] System Reset : Start of Simulation
+UVM_INFO testbench.sv(475) @ 70000: uvm_test_top.env.a.m [MON] SYSTEM RESET DETECTED
+UVM_INFO testbench.sv(525) @ 70000: uvm_test_top.env.s [SCO] BAUD:x LEN:x PAR_T:x PAR_EN:x STOP:x TX_DATA:x RX_DATA:x
+UVM_INFO testbench.sv(527) @ 70000: uvm_test_top.env.s [SCO] System Reset
+----------------------------------------------------------------
+UVM_INFO testbench.sv(407) @ 70000: uvm_test_top.env.a.d [DRV] System Reset : Start of Simulation
+UVM_INFO testbench.sv(475) @ 90000: uvm_test_top.env.a.m [MON] SYSTEM RESET DETECTED
+UVM_INFO testbench.sv(525) @ 90000: uvm_test_top.env.s [SCO] BAUD:x LEN:x PAR_T:x PAR_EN:x STOP:x TX_DATA:x RX_DATA:x
+UVM_INFO testbench.sv(527) @ 90000: uvm_test_top.env.s [SCO] System Reset
+----------------------------------------------------------------
+UVM_INFO testbench.sv(428) @ 90000: uvm_test_top.env.a.d [DRV] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:137
+UVM_INFO testbench.sv(493) @ 562830000: uvm_test_top.env.a.m [MON] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:137 RX_DATA:137
+UVM_INFO testbench.sv(525) @ 562830000: uvm_test_top.env.s [SCO] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:137 RX_DATA:137
+UVM_INFO testbench.sv(529) @ 562830000: uvm_test_top.env.s [SCO] Test Passed
+----------------------------------------------------------------
+UVM_INFO testbench.sv(428) @ 562830000: uvm_test_top.env.a.d [DRV] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:138
+UVM_INFO testbench.sv(493) @ 1186990000: uvm_test_top.env.a.m [MON] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:138 RX_DATA:138
+UVM_INFO testbench.sv(525) @ 1186990000: uvm_test_top.env.s [SCO] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:138 RX_DATA:138
+UVM_INFO testbench.sv(529) @ 1186990000: uvm_test_top.env.s [SCO] Test Passed
+----------------------------------------------------------------
+UVM_INFO testbench.sv(428) @ 1186990000: uvm_test_top.env.a.d [DRV] BAUD:38400 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:170
+UVM_INFO testbench.sv(493) @ 1814470000: uvm_test_top.env.a.m [MON] BAUD:38400 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:170 RX_DATA:170
+UVM_INFO testbench.sv(525) @ 1814470000: uvm_test_top.env.s [SCO] BAUD:38400 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:170 RX_DATA:170
+UVM_INFO testbench.sv(529) @ 1814470000: uvm_test_top.env.s [SCO] Test Passed
+----------------------------------------------------------------
+UVM_INFO testbench.sv(428) @ 1814470000: uvm_test_top.env.a.d [DRV] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:202
+UVM_INFO testbench.sv(493) @ 2438630000: uvm_test_top.env.a.m [MON] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:202 RX_DATA:202
+UVM_INFO testbench.sv(525) @ 2438630000: uvm_test_top.env.s [SCO] BAUD:38400 LEN:8 PAR_T:0 PAR_EN:0 STOP:0 TX_DATA:202 RX_DATA:202
+UVM_INFO testbench.sv(529) @ 2438630000: uvm_test_top.env.s [SCO] Test Passed
+----------------------------------------------------------------
+UVM_INFO testbench.sv(428) @ 2438630000: uvm_test_top.env.a.d [DRV] BAUD:57600 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:117
+UVM_INFO testbench.sv(493) @ 2857510000: uvm_test_top.env.a.m [MON] BAUD:57600 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:117 RX_DATA:117
+UVM_INFO testbench.sv(525) @ 2857510000: uvm_test_top.env.s [SCO] BAUD:57600 LEN:8 PAR_T:1 PAR_EN:0 STOP:0 TX_DATA:117 RX_DATA:117
+UVM_INFO testbench.sv(529) @ 2857510000: uvm_test_top.env.s [SCO] Test Passed
+----------------------------------------------------------------
+UVM_INFO /xcelium20.09/tools//methodology/UVM/CDNS-1.2/sv/src/base/uvm_objection.svh(1271) @ 2857530000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO /xcelium20.09/tools//methodology/UVM/CDNS-1.2/sv/src/base/uvm_report_server.svh(847) @ 2857530000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   43
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[DRV]    10
+[MON]    10
+[RNTST]     1
+[SCO]    20
+[TEST_DONE]     1
+[UVM/RELNOTES]     1
+
+Simulation complete via $finish(1) at time 2857530 NS + 59
+/xcelium20.09/tools/methodology/UVM/CDNS-1.2/sv/src/base/uvm_root.svh:543     $finish;
+xcelium> exit
+TOOL:	xrun	20.09-s003: Exiting on Feb 10, 2024 at 05:06:24 EST  (total: 00:00:12)
+Done
