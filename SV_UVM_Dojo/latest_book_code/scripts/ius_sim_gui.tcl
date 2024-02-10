@@ -1,2 +1,0 @@
-set assert_report_incompletes 0
-set assert_output_stop_level failed
