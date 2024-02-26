@@ -1,3 +1,4 @@
+//Author: Kumar Khadangle
 module spi_mem(
 input clk, rst, cs, miso,
 output reg ready, mosi, op_done
